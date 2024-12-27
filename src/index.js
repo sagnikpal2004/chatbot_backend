@@ -16,7 +16,11 @@ app.get("/", (_, res) => {
 });
 
 import authRouter from "./routes/auth.js";
+import profileRouter from "./routes/profile.js"
 
 app.use("/auth", authRouter);
+app.use("/profile", profileRouter);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
