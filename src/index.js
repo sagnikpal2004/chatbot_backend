@@ -1,9 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-import mongoose from "mongoose";
-mongoose.connect(process.env.MONGO_URI);
-
 import express from "express";
 
 const app = express();
@@ -16,10 +10,10 @@ app.get("/", (_, res) => {
 });
 
 import authRouter from "./routes/auth.js";
-import profileRouter from "./routes/profile.js"
+import chatsRouter from "./routes/chats.js";
 
 app.use("/auth", authRouter);
-app.use("/profile", profileRouter);
+app.use("/chats", chatsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
+import pool from "../utils/postgres.js";
 
-import User from "../models/User.js";
-
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET)
@@ -18,12 +17,11 @@ const authenticateToken = async (req, res, next) => {
     try {
         const decoded_id = jwt.verify(token, JWT_SECRET).id;
 
-        const user = await User.findById(decoded_id);
-        if (!user)
-            res.sendStatus(401);
+        const results = await pool.query("SELECT * FROM users WHERE user_id = $1", [decoded_id]);
+        if (results.rowCount === 0)
+            return res.sendStatus(401);
 
-        req.user = user.toObject();
-        delete req.user.password;
+        req.user_id = results.rows[0].user_id;
     } catch (error) {
         return res.status(403).send((error).message);
     }
