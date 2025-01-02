@@ -2,7 +2,7 @@ import pool from "../utils/postgres.js";
 
 export const getChats = async (req, res) => {
     const chats = (await pool.query("SELECT * FROM chats WHERE user_id = $1", [req.user_id])).rows;
-    res.status(200).json(chats);
+    res.status(200).json({ chats });
 };
 
 export const getChatByID = async (req, res) => {
@@ -13,7 +13,7 @@ export const getChatByID = async (req, res) => {
         res.sendStatus(404)
 
     const chat = results.rows[0];
-    res.status(200).json(chat);
+    res.status(200).json({ chat });
 };
 
 export const getLatestChat = async (req, res) => {
@@ -22,7 +22,7 @@ export const getLatestChat = async (req, res) => {
         [req.user_id]
     )).rows[0];
 
-    res.status(200).json(chat);
+    res.status(200).json({ chat });
 };
 
 export const createChat = async (req, res) => {
@@ -33,7 +33,7 @@ export const createChat = async (req, res) => {
         [req.user_id, prompt, response, rating]
     )).rows[0].chat_id;
     
-    res.status(201).json(chat_id);
+    res.status(201).json({ chat_id });
 };
 
 export const updateChat = async (req, res) => {

@@ -13,7 +13,7 @@ const generateToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '30d' })
 
 export const getUserProfile = async (req, res) => {
     const user = (await pool.query("SELECT * FROM users WHERE user_id = $1", [req.user_id])).rows[0];
-    res.status(200).json(user);
+    res.status(200).json({ user });
 };
 
 export const registerUser = async (req, res) => {
@@ -38,7 +38,7 @@ export const loginUser = async (req, res) => {
 
     const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
     if (result.rowCount === 0)
-        return res.sendStatus(401);
+        return res.sendStatus(404);
     const user = result.rows[0];
 
     if (!(await bcrypt.compare(password, user.password)))
