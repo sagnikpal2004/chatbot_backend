@@ -10,9 +10,9 @@
     {
       "name": "string",
       "email": "string",
-      "phone": int, //TODO - change to string
+      "phone": integer, //TODO - change to string
       "password": "string",
-      "role": int
+      "role": integer
     }
     ```
 - **Response**:
@@ -70,7 +70,7 @@
     {
       "prompt": "string",
       "response": "string",
-      "rating": "integer"
+      "rating": integer
     }
     ```
 - **Response**:
@@ -85,7 +85,7 @@
     {
       "prompt": "string",
       "response": "string",
-      "rating": "integer"
+      "rating": integer
     }
     ```
 - **Response**:
@@ -98,3 +98,13 @@
 - **Response**:
   - `204 No Content`: Successfully deleted
   - `404 Not Found`: Returns an error message if chat not found.
+
+#### POST /router
+- **Description**: Gets the topic for a given query using similarity search
+- **Headers**: `Authorization: Bearer <token>`
+- **Request**:
+  - **Body**:
+  ```json
+  {
+    "query": "string"
+  }
