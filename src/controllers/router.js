@@ -2,7 +2,6 @@ import { exec } from 'child_process';
 
 export const queryRouter = (req, res) => {
     const { course_id, query } = req.body;
-    console.log(course_id, query);
 
     exec(`python src/utils/vectorstore.py ${course_id} "${query}"`, (err, stdout, stderr) => {
         if (err)
