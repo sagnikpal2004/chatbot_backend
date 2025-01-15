@@ -1,3 +1,9 @@
+# chatbot_backend
+
+## Development
+To run the development server: `npm run dev`
+Server is accessible from `http://localhost:3000/`
+
 ## API Documentation
 
 ### Authentication Routes
